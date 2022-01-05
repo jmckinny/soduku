@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Soduku Solver</title>
+  </head>
+  <body>
+      <h1>Soduku Solver</h1>
+      <h2>Enter a comma seperated list numbers in order left to right, top to bottom:</h2>
+      <script type="module">
+      import init, {greet,solve} from "./pkg/soduku.js";
+      init();
+        const btn = document.getElementById("btn");
+        btn.addEventListener('click', function(){
+            let string = document.getElementById("numbers").value;
+            string.replace(/\s/g,'');
+            let numbers = string.split(',').map(function(item) {return parseInt(item, 10);});
+            console.log(numbers);
+            let output = solve(numbers);
+            alert("Input: "+ output);
+        });
+    </script>
+      <input type="text" id="numbers" placeholder="Enter Numbers!"></input>
+      <button id="btn">Solve</button>
+  </body>
+</html>
