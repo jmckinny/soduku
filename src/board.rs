@@ -28,7 +28,7 @@ impl Board {
         }
         board
     }
-
+    #[allow(dead_code)]
     pub fn from_csv(filename: &str) -> Self {
         let reader = BufReader::new(File::open(filename).unwrap());
         let mut data = Vec::new();
@@ -129,7 +129,7 @@ impl Board {
         }
         None
     }
-
+    #[allow(dead_code)]
     pub fn get_nums(&self) -> Vec<u8> {
         self.data.clone().into_iter().flatten().collect()
     }
@@ -144,5 +144,73 @@ impl std::fmt::Display for Board {
             writeln!(f)?;
         }
         Ok(())
+    }
+}
+#[cfg(test)]
+mod tests {
+    use super::Board;
+
+    #[test]
+    fn test_washington_post() {
+        let mut board = Board::from_csv("boards/washington_post.csv");
+        board.solve().unwrap();
+        assert_eq!(
+            board.data,
+            vec![
+                vec![6, 1, 2, 8, 4, 3, 9, 7, 5],
+                vec![7, 8, 5, 9, 1, 6, 2, 4, 3],
+                vec![4, 3, 9, 7, 5, 2, 6, 1, 8],
+                vec![2, 5, 3, 1, 9, 7, 8, 6, 4],
+                vec![1, 7, 8, 4, 6, 5, 3, 2, 9],
+                vec![9, 6, 4, 2, 3, 8, 7, 5, 1],
+                vec![8, 4, 6, 5, 7, 9, 1, 3, 2],
+                vec![3, 2, 1, 6, 8, 4, 5, 9, 7],
+                vec![5, 9, 7, 3, 2, 1, 4, 8, 6],
+            ]
+        );
+    }
+    #[test]
+    fn test_board() {
+        let mut board = Board::from_csv("boards/board.csv");
+        board.solve().unwrap();
+        assert_eq!(
+            board.data,
+            vec![
+                vec![5, 3, 4, 6, 7, 8, 9, 1, 2],
+                vec![6, 7, 2, 1, 9, 5, 3, 4, 8],
+                vec![1, 9, 8, 3, 4, 2, 5, 6, 7],
+                vec![8, 5, 9, 7, 6, 1, 4, 2, 3],
+                vec![4, 2, 6, 8, 5, 3, 7, 9, 1],
+                vec![7, 1, 3, 9, 2, 4, 8, 5, 6],
+                vec![9, 6, 1, 5, 3, 7, 2, 8, 4],
+                vec![2, 8, 7, 4, 1, 9, 6, 3, 5],
+                vec![3, 4, 5, 2, 8, 6, 1, 7, 9],
+            ]
+        );
+    }
+    #[test]
+    fn test_samurai_section() {
+        let mut board = Board::from_csv("boards/samurai.csv");
+        board.solve().unwrap();
+        assert_eq!(
+            board.data,
+            vec![
+                vec![4, 9, 5, 6, 7, 2, 3, 8, 1],
+                vec![8, 2, 1, 3, 4, 5, 6, 7, 9],
+                vec![7, 6, 3, 1, 8, 9, 4, 2, 5],
+                vec![5, 3, 8, 4, 2, 1, 9, 6, 7],
+                vec![2, 4, 7, 9, 6, 8, 1, 5, 3],
+                vec![6, 1, 9, 5, 3, 7, 2, 4, 8],
+                vec![3, 5, 2, 7, 9, 4, 8, 1, 6],
+                vec![9, 7, 4, 8, 1, 6, 5, 3, 2],
+                vec![1, 8, 6, 2, 5, 3, 7, 9, 4],
+            ]
+        );
+    }
+
+    #[test]
+    fn test_bad_board() {
+        let mut board = Board::from_csv("boards/bad.csv");
+        assert!(board.solve().is_err());
     }
 }
