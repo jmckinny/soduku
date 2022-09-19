@@ -132,11 +132,19 @@ impl Board {
 
 impl std::fmt::Display for Board {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for row in &self.data {
-            for num in row {
+        for (i, row) in self.data.iter().enumerate() {
+            for (j, num) in row.iter().enumerate() {
                 write!(f, " {} ", num)?;
+                if (j + 1) % 3 == 0 && j + 1 != 9 {
+                    write!(f, "|")?;
+                }
             }
-            writeln!(f)?;
+            if (i + 1) % 3 == 0 && i + 1 != 9 {
+                writeln!(f)?;
+                writeln!(f, "------------------------------")?;
+            } else {
+                writeln!(f)?;
+            }
         }
         Ok(())
     }
