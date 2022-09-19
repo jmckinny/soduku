@@ -130,7 +130,7 @@ impl Board {
         None
     }
 
-    pub fn get_nums(&self) -> Vec<u8>{
+    pub fn get_nums(&self) -> Vec<u8> {
         self.data.clone().into_iter().flatten().collect()
     }
 }
