@@ -1,5 +1,5 @@
 # Soduku Solver in Rust
-This is an implementation of the backtracking soduku solver in rust
+This is an implementation of the [backtracking](https://en.wikipedia.org/wiki/Sudoku_solving_algorithms#Backtracking) soduku solver in rust
 ## Usage
 - Run tests: `cargo test`
 - Run solver on a particular board `cargo run --release <boards/name.csv>`
