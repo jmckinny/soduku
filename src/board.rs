@@ -28,7 +28,6 @@ impl Board {
         }
         board
     }
-    #[allow(dead_code)]
     pub fn from_csv(filename: &str) -> Self {
         let reader = BufReader::new(File::open(filename).unwrap());
         let mut data = Vec::new();
@@ -128,10 +127,6 @@ impl Board {
             }
         }
         None
-    }
-    #[allow(dead_code)]
-    pub fn get_nums(&self) -> Vec<u8> {
-        self.data.clone().into_iter().flatten().collect()
     }
 }
 
